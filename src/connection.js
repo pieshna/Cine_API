@@ -1,4 +1,3 @@
-//connection with mongodb atlas
 const mongoose = require("mongoose");
 require("dotenv").config();
 
