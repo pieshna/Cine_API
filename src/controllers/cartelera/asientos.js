@@ -1,7 +1,6 @@
 const Asiento = require("../../models/Asiento");
 
 const createAsiento = (movieId) => {
-    const nuevo = [];
    const asientos = []
     for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 10; j++) {
@@ -20,11 +19,11 @@ const createAsiento = (movieId) => {
             }
         }
     }
-    nuevo.push({
+    const envio = new Asiento({
         movieId,
         asientos
     })
-    return nuevo;
+    return envio;
 };
 
 const listByMovie = async (req, res) => {
@@ -82,5 +81,5 @@ const compareAndUpdate = async (movieId, asientos) => {
     }
 }
 
-module.exports = { createAsiento, listByMovie, update, updateToAvailable, compareAndUpdate};
+module.exports = { createAsiento, listByMovie, update, updateToAvailable, compareAndUpdate };
 

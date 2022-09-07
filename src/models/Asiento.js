@@ -9,6 +9,10 @@ const asientoSchema = mongoose.Schema({
     asientos:{
         type: Array,
         required: true
+    },
+    created_at:{
+        type: Date,
+        default: Date.now
     }
 })
 

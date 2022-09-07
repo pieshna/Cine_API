@@ -1,6 +1,6 @@
 const Movie = require("../../models/Movie");
 const Asiento = require("../../models/Asiento");
-const createAsiento = require("./asientos");
+const {createAsiento} = require("./asientos");
 
 
 
@@ -14,8 +14,7 @@ const create = async (req, res) => {
     });
     const result = await movie.save();
     const asientos = createAsiento(result._id);
-    console.log(asientos);
-    await Asiento.insertMany(asientos);
+    await asientos.save();
     res.status(200).json(result);
 };
 
