@@ -16,11 +16,13 @@ app.use(express.json());
 const AuthRoutes = require('./routes/auth.routes');
 const MovieRoutes = require('./routes/movie.routes');
 const AsientoRoutes = require('./routes/asiento.routes');
+const CompraRoutes = require('./routes/compra.routes');
+
 
 app.use('/auth', AuthRoutes);
 app.use('/movie', MovieRoutes);
 app.use('/asiento', AsientoRoutes);
-
+app.use('/compra', CompraRoutes);
 
 
 const port = process.env.PORT || 3000;

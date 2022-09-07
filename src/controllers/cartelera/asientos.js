@@ -37,21 +37,6 @@ const listByMovie = async (req, res) => {
     }
 }
 
-const update = async (req, res) => {
-    const { id } = req.params;
-    const { row, column } = req.body;
-    try {
-        const asiento = await Asiento.findOne({ movieId: id });
-        const asientos = asiento.asientos;
-        const index = asientos.findIndex((item) => item.row === row && item.column === column);
-        asientos[index].isAvailable = false;
-        const result = await Asiento.findOneAndUpdate({ movieId: id }, { asientos }, { new: true });
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-}
-
 const updateToAvailable = async (req, res) => {
     const { id } = req.params;
     const { row, column } = req.body;
@@ -67,5 +52,35 @@ const updateToAvailable = async (req, res) => {
     }
 }
 
-module.exports = { createAsiento, listByMovie, update, updateToAvailable };
+const update = async (req, res) => {
+    const { id } = req.params;
+    const { row, column } = req.body;
+    try {
+        const asiento = await Asiento.findOne({ movieId: id });
+        const asientos = asiento.asientos;
+        const index = asientos.findIndex((item) => item.row === row && item.column === column);
+        asientos[index].isAvailable = false;
+        const result = await Asiento.findOneAndUpdate({ movieId: id }, { asientos }, { new: true });
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+const compareAndUpdate = async (movieId, asientos) => {
+    try {
+        const asiento = await Asiento.findOne({ movieId });
+        const asientosDB = asiento.asientos;
+        asientos.forEach(element => {
+            const index = asientosDB.findIndex((item) => item.row === element.row && item.column === element.column);
+            asientosDB[index].isAvailable = false;
+        });
+        const result = await Asiento.findOneAndUpdate({ movieId }, { asientos: asientosDB }, { new: true });
+        return result;
+    } catch (error) {
+        return error;
+    }
+}
+
+module.exports = { createAsiento, listByMovie, update, updateToAvailable, compareAndUpdate};
 
