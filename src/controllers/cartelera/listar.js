@@ -48,7 +48,17 @@ const remove = async (req, res) => {
     }
 }
 
-module.exports = { create, list, update, remove };
+const listById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const movie = await Movie.findById(id);
+        res.status(200).json(movie);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = { create, list, update, remove, listById };
 
 
 
