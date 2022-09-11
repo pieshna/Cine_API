@@ -1,4 +1,4 @@
-const Compra = require('../../models/compra');
+const Compra = require('../../models/Compra');
 const { compareAndUpdate } = require('../cartelera/asientos');
 
 const create = async (req, res) => {
