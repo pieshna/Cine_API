@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const connection = require('./Connection');
+const connection = require('./connection');
 
 let CorsOptions = {
     origin: '*',
